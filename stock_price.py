@@ -14,11 +14,11 @@ user_input = st.text_area("Enter the company name or details:")
 if st.button("Submit") and user_input:
     # Initialize the model
     model = ChatGroq(
-        model="openai/gpt-oss-120b",  # You can replace with another Groq-supported model
+        model="openai/gpt-oss-120b",  
         api_key=os.getenv("GROQ_API_KEY")
     )
 
-    # Create the prompt
+    
     prompt = PromptTemplate(
         template=(
             "You are a finance expert who predicts stock prices.\n"
@@ -29,15 +29,16 @@ if st.button("Submit") and user_input:
         input_variables=["user_input"]
     )
 
-    # Create parser
+    
     parser = StrOutputParser()
 
-    # Chain everything together
+    
     chain = prompt | model | parser
 
-    # Run the chain
+    
     response = chain.invoke({"user_input": user_input})
 
-    # Display result
+    
     st.subheader("Predicted Stock Price Trend:")
     st.write(response)
+
